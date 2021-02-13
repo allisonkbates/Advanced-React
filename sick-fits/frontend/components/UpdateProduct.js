@@ -50,7 +50,6 @@ export default function UpdateProduct({ id }) {
     price: data?.Product.price || 0,
     description: data?.Product.description || '',
   });
-  console.log(inputs);
   if (loading) return <p>Loading...</p>;
   // get the mutation to update the product
   // the form to handle the updates
@@ -67,7 +66,6 @@ export default function UpdateProduct({ id }) {
             price: inputs.price,
           },
         }).catch(console.error);
-        console.log(res);
         // TODO HANDLE SUBMIT
         // submit the input fields to the backend
         //   const res = await createProduct();
