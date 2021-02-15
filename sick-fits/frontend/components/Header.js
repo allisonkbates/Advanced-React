@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 import Nav from './Nav';
+import Cart from './Cart';
 
 const Logo = styled.h1`
   font-size: 4rem;
@@ -24,7 +25,7 @@ const HeaderStyles = styled.header`
     grid-template-columns: auto 1fr;
     justify-content: space-between;
     align-items: stretch;
-
+  }
   .sub-bar {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -44,6 +45,7 @@ export default function Header() {
       <div className="sub-bar">
         <p>Search</p>
       </div>
+      <Cart />
     </HeaderStyles>
   );
 }

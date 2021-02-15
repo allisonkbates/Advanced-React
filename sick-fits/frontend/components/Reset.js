@@ -31,16 +31,16 @@ export default function Reset({ token }) {
     variables: inputs,
   });
 
+  const successfulError = data?.redeemUserPasswordResetToken?.code
+    ? data?.redeemUserPasswordResetToken
+    : undefined;
+
   async function handleSubmit(e) {
     e.preventDefault(); // stop for the form from submitting
     const res = await reset().catch(console.error);
     console.log(res);
     resetForm();
   }
-
-  const successfulError = data?.redeemUserPasswordResetToken?.code
-    ? data?.redeemUserPasswordResetToken
-    : undefined;
 
   return (
     <Form method="POST" onSubmit={handleSubmit}>
