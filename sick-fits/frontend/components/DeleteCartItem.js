@@ -20,9 +20,14 @@ const DeleteCartItemStyles = styled.button`
   }
 `;
 
+function update(cache, payload) {
+  cache.evict(cache.identify(payload.data.deleteCartItem));
+}
+
 export default function DeleteCartItem({ id }) {
   const [deleteCartItem, { loading }] = useMutation(DELETE_CART_ITEM_MUTATION, {
     variables: { id },
+    update,
   });
   return (
     <DeleteCartItemStyles
