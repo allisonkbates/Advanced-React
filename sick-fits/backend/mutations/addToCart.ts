@@ -13,11 +13,16 @@ export default async function addToCart(
     throw new Error("you must be logged in");
   }
 
+  // Query the current user's cart
   const allCartItems = await context.lists.CartItem.findMany({
     where: { user: { id: sesh.itemId }, product: { id: productId } },
+    resolveFields: "id, quantity",
   });
 
   const [existingCartItem] = allCartItems;
+
+  // Is the item they're adding already in the cart?
+  // If it is, increment by one
   if (existingCartItem) {
     console.log(
       `This item is already ${existingCartItem.quantity} in the cart, increment by one`
@@ -27,8 +32,11 @@ export default async function addToCart(
       data: { quantity: existingCartItem.quantity + 1 },
     });
   }
-  // Query the current user's cart
-  // Is the item they're adding already in the cart?
-  // If it is, increment by one
   // If it isn't, create a new cart item
+  return await context.lists.CartItem.createOne({
+    data: {
+      product: { connect: { id: productId } },
+      user: { connect: { id: sesh.itemId } },
+    },
+  });
 }
